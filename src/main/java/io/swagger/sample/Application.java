@@ -2,8 +2,9 @@ package io.swagger.sample;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.base.Predicates;
 
-import io.swagger.sample.resource.PetResource;
-import io.swagger.sample.resource.StoreResource;
-import io.swagger.sample.utils.SimpleCORSFilter;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -26,11 +24,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan(basePackageClasses = {
-    PetResource.class,
-    StoreResource.class,
-    SimpleCORSFilter.class
-})
 public class Application {
 	
     public static void main(String[] args) {
@@ -61,6 +54,13 @@ public class Application {
             enable(SerializationFeature.INDENT_OUTPUT);
         }
     }
+    
+    @Bean
+    public EmbeddedServletContainerFactory servletContainer() {
+        TomcatEmbeddedServletContainerFactory factory = 
+                      new TomcatEmbeddedServletContainerFactory();
+        return factory;
+     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
