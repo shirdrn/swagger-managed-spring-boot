@@ -39,18 +39,17 @@ public class PetResource extends AbstractResource {
         Pet pet = data.getPetById(petId);
         if(pet != null) {
             return ResponseEntity.ok().body(pet);
-        }
-        else {
+        } else {
             throw new NotFoundException(io.swagger.sample.models.ApiResponse.ERROR, "Pet " + petId + " not found");
         }
     }
     
-    @ApiOperation(notes = "Add a pet", value = "Add a pet", nickname = "addPet",
-            tags = {"Pets"} )
-        @ApiResponses({
-            @ApiResponse(code = 200, message = "Nice!", response = Pet.class),
-            @ApiResponse(code = 400, message = "Invalid ID supplied", response = io.swagger.sample.models.ApiResponse.class),
-            @ApiResponse(code = 413, message = "Pet already exsited", response = io.swagger.sample.models.ApiResponse.class)
+	    @ApiOperation(notes = "Add a pet", value = "Add a pet", nickname = "addPet",
+	            tags = {"Pets"} )
+	    @ApiResponses({
+			@ApiResponse(code = 200, message = "Nice!", response = Pet.class),
+			@ApiResponse(code = 400, message = "Invalid ID supplied", response = io.swagger.sample.models.ApiResponse.class),
+			@ApiResponse(code = 413, message = "Pet already exsited", response = io.swagger.sample.models.ApiResponse.class)
         })
         @RequestMapping(
         		value = "/pets/addPet/{id}/{name}/{catId}", 
@@ -71,7 +70,7 @@ public class PetResource extends AbstractResource {
             if(data.addPet(pet)) {
             	return ResponseEntity.ok().body(pet);
             } else {
-            	throw new AlreadyExistedException(io.swagger.sample.models.ApiResponse.ERROR, "Pet " + petId + " already exsited!");
+            	throw new AlreadyExistedException(io.swagger.sample.models.ApiResponse.ALREADY_EXISTED, "Pet " + petId + " already exsited");
             }
             
         }
