@@ -96,15 +96,16 @@ public class PetData {
     return result;
   }
 
-  public void addPet(Pet pet) {
+  public boolean addPet(Pet pet) {
     if (pets.size() > 0) {
       for (int i = pets.size() - 1; i >= 0; i--) {
         if (pets.get(i).getId() == pet.getId()) {
-          pets.remove(i);
+          return false;
         }
       }
     }
     pets.add(pet);
+    return true;
   }
 
   static Pet createPet(long id, Category cat, String name, String[] urls,
