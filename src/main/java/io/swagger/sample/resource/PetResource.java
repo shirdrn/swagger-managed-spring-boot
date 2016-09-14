@@ -49,7 +49,7 @@ public class PetResource extends AbstractResource {
 	    @ApiResponses({
 			@ApiResponse(code = 200, message = "Nice!", response = Pet.class),
 			@ApiResponse(code = 400, message = "Invalid ID supplied", response = io.swagger.sample.models.ApiResponse.class),
-			@ApiResponse(code = 413, message = "Pet already exsited", response = io.swagger.sample.models.ApiResponse.class)
+			@ApiResponse(code = 409, message = "Pet already exsited", response = io.swagger.sample.models.ApiResponse.class)
         })
         @RequestMapping(
         		value = "/pets/addPet/{id}/{name}/{catId}", 
